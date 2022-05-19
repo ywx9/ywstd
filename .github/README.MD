@@ -47,18 +47,18 @@ int main() {
 1. Hiding explanation-only definitions in std::_ namesapce.<br>
    It makes the autocomplete list clear.
 
-  + MSVC
+  + MSVC<br>
     ![AutocompleteList-MSVC](AutocompleteList-MSVC.jpg)
 
-  + Ywstd
+  + Ywstd<br>
     ![AutocompleteList-Ywstd](AutocompleteList-Ywstd.jpg)
 
 2. Showing the information of definitions more simply.
 
-  + MSVC
+  + MSVC<br>
     ![DefinitionInformation-MSVC](DefinitionInformation-MSVC.jpg)
 
-  + Ywstd
+  + Ywstd<br>
     ![DefinitionInformation-Ywstd](DefinitionInformation-Ywstd.jpg)
 
 ## License

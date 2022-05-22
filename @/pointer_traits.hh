@@ -49,7 +49,7 @@ template<typename Ty> struct pointer_traits<Ty*> {
 namespace _ {
   template<typename Ty> constexpr Ty* to_address(Ty* x) noexcept { return x; }
   template<typename Ty> constexpr auto to_address(const Ty& x) noexcept {
-    if constexpr (requires { pointer_traits<Ty>::to_address(x); }) return pointer_traits<Ty>::to_address(x);
+    if constexpr (requires { typename pointer_traits<Ty>::element_type; pointer_traits<Ty>::to_address(x); }) return pointer_traits<Ty>::to_address(x);
     else return _::to_address(x.operator->());
   }
 }

@@ -56,7 +56,7 @@ namespace _ {
 }
 
 template<typename Fn, typename... Ts> struct invoke_result {};
-template<typename Fn, typename... Ts> requires (_::_invoke::cs<Fn, Ts...>.able)
+template<typename Fn, typename... Ts> requires requires { requires _::_invoke::cs<Fn, Ts...>.able; }
 struct invoke_result<Fn, Ts...> : type_identity<decltype(_::_invoke{}(_::declval<Fn>(), _::declval<Ts>()...))> {};
 template<typename Fn, typename... Ts> using invoke_result_t = typename invoke_result<Fn, Ts...>::type;
 

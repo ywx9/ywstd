@@ -96,7 +96,7 @@ template<typename T1, typename T2> struct _switch<T1, T2, true> { using type = T
 YW_WINDOWS_TYPE(ATOM, unsigned short)
 YW_WINDOWS_TYPE(BOOL, int)
 YW_WINDOWS_TYPE(BYTE, unsigned char)
-YW_WINDOWS_TYPE(COLORREF, DWORD)
+YW_WINDOWS_TYPE(COLORREF, unsigned long)
 YW_WINDOWS_TYPE(DWORD, unsigned long)
 YW_WINDOWS_TYPE(DWORD_PTR, typename _switch<DWORD, unsigned long long>::type)
 YW_WINDOWS_TYPE(HANDLE, void*)
@@ -163,7 +163,6 @@ using WNDCLASSEX = typename _switch<WNDCLASSEXW, WNDCLASSEXA, unicode>::type;
 
 YW_WINDOWS_FUNC(BOOL, AdjustWindowRect, RECT*, DWORD, BOOL)
 YW_WINDOWS_FUNC(BOOL, AdjustWindowRectEx, RECT*, DWORD, BOOL, DWORD)
-YW_WINDOWS_FUNC(BOOL, AllowSetForegroundWindow, DWORD)
 YW_WINDOWS_FUNC(BOOL, AllowSetForegroundWindow, DWORD)
 YW_WINDOWS_FUNC(BOOL, AnimateWindow, HWND, DWORD, DWORD);
 YW_WINDOWS_FUNC(BOOL, AnyPopup)

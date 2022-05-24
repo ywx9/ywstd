@@ -5,10 +5,7 @@
 
 // clang-format off
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
-#pragma clang diagnostic pop
 
 #ifdef _ywstd_
 #include <string>

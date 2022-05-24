@@ -5,10 +5,7 @@
 
 // clang-format off
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
-#pragma clang diagnostic pop
 
 #ifdef _ywstd_
 #include <tuple>
@@ -138,7 +135,7 @@ template<typename... Ts> class tuple {
   _::tuple_value<Ts...> values;
   static constexpr bool expl_ctor1 = !(_::is_implicitly_default_constructible_v<Ts> && ...);
   static constexpr bool expl_ctor2 = !(_::is_convertible_v<const Ts&, Ts> && ...);
-  template<typename... Us> static constexpr bool expl_ctor3 = !(_::is_convertible_v<Us, Ts> && ...);
+  template<typename... Us> static constexpr bool expl_ctor3 = requires { requires !(_::is_convertible_v<Us, Ts> && ...); };
   template<typename... Us> static constexpr bool can_ctor = requires { requires (_::is_constructible_v<Ts, Us> && ...); };
   template<typename... Us> static constexpr bool can_assign1 = requires { requires (_::is_assignable_v<Ts&, Us> && ...); };
   template<typename... Us> static constexpr bool can_assign2 = requires { requires (_::is_assignable_v<const Ts&, Us> && ...); };

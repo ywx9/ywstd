@@ -5,10 +5,7 @@
 
 // clang-format off
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
-#pragma clang diagnostic pop
 
 namespace std::_ {
 
@@ -225,7 +222,7 @@ template<typename Ty, typename Uy = remove_reference_t<Ty>> using decay_t =
 
 template<typename Ty> using underlying_type_t = __underlying_type(Ty);
 
-template<typename Ty> add_rvalue_reference_t<Ty> declval() noexcept { static_assert(false); }
+template<typename Ty> add_rvalue_reference_t<Ty> declval() noexcept;
 
 template<typename Ty> inline constexpr size_t rank_v = 0;
 template<typename Ty> inline constexpr size_t rank_v<Ty[]> = 1 + rank_v<Ty>;

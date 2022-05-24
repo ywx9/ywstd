@@ -5,10 +5,7 @@
 
 // clang-format off
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
-#pragma clang diagnostic pop
 
 #include "../@/../compare.hh"
 #include "../@/../concepts.hh"
@@ -19,7 +16,7 @@
 
 namespace std {
 
-template<typename... Ts> struct tuple;
+template<typename... Ts> class tuple;
 
 struct piecewise_construct_t { explicit piecewise_construct_t() = default; };
 inline constexpr piecewise_construct_t piecewise_construct{};

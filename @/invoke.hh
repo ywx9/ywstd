@@ -5,10 +5,7 @@
 
 // clang-format off
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
-#pragma clang diagnostic pop
 
 #include "../@/_.hh"
 #include "../@/integral_constant.hh"
@@ -16,7 +13,7 @@
 
 namespace std {
 
-template<typename Ty> struct reference_wrapper;
+template<typename Ty> class reference_wrapper;
 
 namespace _ {
   struct _invoke {

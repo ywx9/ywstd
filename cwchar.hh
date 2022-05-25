@@ -17,7 +17,7 @@ namespace std {
 
 using size_t = decltype(sizeof(int));
 using va_list = char*;
-using wint_t = unsigned int;
+using wint_t = unsigned short;
 
 wchar_t* wcscpy(wchar_t*, const wchar_t*);
 wchar_t* wcsncpy(wchar_t*, const wchar_t*, size_t);

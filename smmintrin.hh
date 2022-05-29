@@ -13,7 +13,36 @@
 #include <smmintrin.h>
 #endif
 
+#undef _MM_FROUND_TO_NEAREST_INT
+#undef _MM_FROUND_TO_NEG_INF
+#undef _MM_FROUND_TO_POS_INF
+#undef _MM_FROUND_TO_ZERO
+#undef _MM_FROUND_CUR_DIRECTION
+#undef _MM_FROUND_RAISE_EXC
+#undef _MM_FROUND_NO_EXC
+#undef _MM_FROUND_NINT
+#undef _MM_FROUND_FLOOR
+#undef _MM_FROUND_CEIL
+#undef _MM_FROUND_TRUNC
+#undef _MM_FROUND_RINT
+#undef _MM_FROUND_NEARBYINT
+
 namespace yw::intrin {
+
+inline constexpr int4 _MM_FROUND_TO_NEAREST_INT = 0x00;
+inline constexpr int4 _MM_FROUND_TO_NEG_INF = 0x01;
+inline constexpr int4 _MM_FROUND_TO_POS_INF = 0x02;
+inline constexpr int4 _MM_FROUND_TO_ZERO = 0x03;
+inline constexpr int4 _MM_FROUND_CUR_DIRECTION = 0x04;
+inline constexpr int4 _MM_FROUND_RAISE_EXC = 0x00;
+inline constexpr int4 _MM_FROUND_NO_EXC = 0x08;
+
+inline constexpr int4 _MM_FROUND_NINT = _MM_FROUND_TO_NEAREST_INT | _MM_FROUND_RAISE_EXC;
+inline constexpr int4 _MM_FROUND_FLOOR = _MM_FROUND_TO_NEG_INF | _MM_FROUND_RAISE_EXC;
+inline constexpr int4 _MM_FROUND_CEIL = _MM_FROUND_TO_POS_INF | _MM_FROUND_RAISE_EXC;
+inline constexpr int4 _MM_FROUND_TRUNC = _MM_FROUND_TO_ZERO | _MM_FROUND_RAISE_EXC;
+inline constexpr int4 _MM_FROUND_RINT = _MM_FROUND_CUR_DIRECTION | _MM_FROUND_RAISE_EXC;
+inline constexpr int4 _MM_FROUND_NEARBYINT = _MM_FROUND_CUR_DIRECTION | _MM_FROUND_NO_EXC;
 
 YW_INTRIN_FUNC(__m128i, _mm_blend_epi16, __m128i, __m128i, const int mask);
 YW_INTRIN_FUNC(__m128i, _mm_blendv_epi8, __m128i, __m128i, __m128i mask);

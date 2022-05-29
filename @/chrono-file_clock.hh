@@ -39,6 +39,7 @@ namespace _ {
 namespace std::chrono {
 
 template<typename Rep> struct treat_as_floating_point : bool_constant<_::is_floating_point_v<Rep>> {};
+template<typename Rep> inline constexpr bool treat_as_floating_point_v = treat_as_floating_point<Rep>::value;
 
 template<typename Rep> struct duration_values {
   static constexpr Rep zero() noexcept { return Rep(0); }

@@ -11,7 +11,7 @@
 
 #include "@/_.hh"
 
-namespace sld {
+namespace std {
 
 using float_t = float;
 using double_t = double;

@@ -55,6 +55,8 @@ protected:
 using filebuf = basic_filebuf<char>;
 using wfilebuf = basic_filebuf<wchar_t>;
 
+template<typename Ct, typename Tr> void swap(basic_filebuf<Ct, Tr>& x, basic_filebuf<Ct, Tr>& y);
+
 //======================================================================================================================
 
 template<typename Ct, typename Tr = char_traits<Ct>>
@@ -90,6 +92,8 @@ public:
 
 using ifstream = basic_ifstream<char>;
 using wifstream = basic_ifstream<wchar_t>;
+
+template<typename Ct, typename Tr> void swap(basic_ifstream<Ct, Tr>& x, basic_ifstream<Ct, Tr>& y);
 
 //======================================================================================================================
 
@@ -127,6 +131,8 @@ public:
 using ofstream = basic_ofstream<char>;
 using wofstream = basic_ofstream<wchar_t>;
 
+template<typename Ct, typename Tr> void swap(basic_ofstream<Ct, Tr>& x, basic_ofstream<Ct, Tr>& y);
+
 //======================================================================================================================
 
 template<typename Ct, typename Tr = char_traits<Ct>>
@@ -161,5 +167,7 @@ public:
 
 using fstream = basic_fstream<char>;
 using wfstream = basic_fstream<wchar_t>;
+
+template<typename Ct, typename Tr> void swap(basic_fstream<Ct, Tr>& x, basic_fstream<Ct, Tr>& y);
 
 }

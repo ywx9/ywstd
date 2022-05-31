@@ -42,7 +42,7 @@ template<_::execution_policy Ex, typename FwdIt, typename Fn> bool all_of(Ex&&, 
 template<typename InpIt, typename Fn> constexpr bool any_of(InpIt i, InpIt s, Fn f) { return std::find_if(i, s, f) != s; }
 template<_::execution_policy Ex, typename FwdIt, typename Fn> bool any_of(Ex&&, FwdIt i, FwdIt s, Fn f);
 
-template<typename InpIt, typename Fn> constexpr bool none_of(InpIt i, InpIt s, Fn f) { return std::find_if(i, s, p) == s; }
+template<typename InpIt, typename Fn> constexpr bool none_of(InpIt i, InpIt s, Fn f) { return std::find_if(i, s, f) == s; }
 template<_::execution_policy Ex, typename FwdIt, typename Fn> bool none_of(Ex&&, FwdIt i, FwdIt s, Fn f);
 
 template<typename InpIt, typename Fn> constexpr Fn for_each(InpIt i, InpIt s, Fn f) { for (; i != s; ++i) f(*i); return f; }
@@ -80,9 +80,9 @@ template<_::execution_policy Ex, typename FwdI1, typename FwdI2> FwdI1 search(Ex
 template<_::execution_policy Ex, typename FwdI1, typename FwdI2, typename Fn> FwdI1 search(Ex&&, FwdI1 i1, FwdI1 s1, FwdI2 i2, FwdI2 s2, Fn f);
 
 template<typename FwdI1, typename FwdI2> constexpr FwdI1 find_end(FwdI1 i1, FwdI1 s1, FwdI2 i2, FwdI2 s2) {
-  if (i2 == s2) return s1; for (auto j = s1, k;; j = k, i1 = j, ++i1) { auto k = std::search(i1, s1, i2, s2); if (k == s1) return j; } }
+  if (i2 == s2) return s1; for (FwdI1 j = s1, k;; j = k, i1 = j, ++i1) { k = std::search(i1, s1, i2, s2); if (k == s1) return j; } }
 template<typename FwdI1, typename FwdI2, typename Fn> constexpr FwdI1 find_end(FwdI1 i1, FwdI1 s1, FwdI2 i2, FwdI2 s2, Fn f) {
-  if (i2 == s2) return s1; for (auto j = s1, k;; j = k, i1 = j, ++i1) { auto k = std::search(i1, s1, i2, s2, f); if (k == s1) return j; } }
+  if (i2 == s2) return s1; for (FwdI1 j = s1, k;; j = k, i1 = j, ++i1) { k = std::search(i1, s1, i2, s2, f); if (k == s1) return j; } }
 template<_::execution_policy Ex, typename FwdI1, typename FwdI2> FwdI1 find_end(Ex&&, FwdI1 i1, FwdI1 s1, FwdI2 i2, FwdI2 s2);
 template<_::execution_policy Ex, typename FwdI1, typename FwdI2, typename Fn> FwdI1 find_end(Ex&&, FwdI1 i1, FwdI1 s1, FwdI2 i2, FwdI2 s2, Fn f);
 
@@ -138,18 +138,18 @@ template<typename InpI1, typename InpI2, typename OutIt, typename Fn> constexpr 
 template<_::execution_policy Ex, typename FwdIt, typename FwdOt, typename Fn> FwdIt transform(Ex&&, FwdIt i, FwdIt s, FwdOt o, Fn f);
 template<_::execution_policy Ex,typename FwdI1,typename FwdI2,typename FwdOt,typename Fn>FwdOt transform(Ex&&,FwdI1 i1,FwdI1 s1,FwdI2 i2,FwdOt o,Fn f);
 
-template<typename FwdIt, typename Fn> constexpr void generate(FwdIt i, FwdIt s, Fn f) { for (i != s) *i++ = f(); }
+template<typename FwdIt, typename Fn> constexpr void generate(FwdIt i, FwdIt s, Fn f) { for (; i != s;) *i++ = f(); }
 template<_::execution_policy Ex, typename FwdIt, typename Fn> void generate(Ex&&, FwdIt i, FwdIt s, Fn f);
 
 template<typename OutIt, typename Size, typename Fn> constexpr OutIt generate_n(OutIt o, Size n, Fn f) { while (0 < n--) *o++ = f(); }
 template<_::execution_policy Ex, typename FwdIt, typename Size, typename Fn> FwdIt generate_n(Ex&&, FwdIt i, Size n, Fn f);
 
 template<typename FwdIt, typename Ty> constexpr FwdIt remove(FwdIt i, FwdIt s, const Ty& v) {
-  i = std::find(i, s, v); if (i != s) for (auto j = i; ++j != s;) if (*j != v) *i++ = _::move(*j) return i; }
+  i = std::find(i, s, v); if (i != s) for (auto j = i; ++j != s;) if (*j != v) *i++ = _::move(*j); return i; }
 template<_::execution_policy Ex, typename FwdIt, typename Ty> FwdIt remove(Ex&&, FwdIt i, FwdIt s, const Ty& v);
 
 template<typename FwdIt, typename Fn> constexpr FwdIt remove_if(FwdIt i, FwdIt s, Fn f) {
-  i = std::find(i, s, v); if (i != s) for (auto j = i; ++j != s;) if (!f(*j)) *i++ = _::move(*j) return i; }
+  i = std::find(i, s, f); if (i != s) for (auto j = i; ++j != s;) if (!f(*j)) *i++ = _::move(*j); return i; }
 template<_::execution_policy Ex, typename FwdIt, typename Fn> FwdIt remove_if(Ex&&, FwdIt i, FwdIt s, Fn f);
 
 template<typename InpIt, typename OutIt,typename Ty> constexpr OutIt remove_copy(InpIt i,InpIt s,OutIt o,const Ty& v){for(;i!=s;++i)if(*i!=v)*o++ =*i;return o;}
@@ -177,8 +177,8 @@ template<typename FwdI1, typename FwdI2> constexpr FwdI2 swap_ranges(FwdI1 i1, F
 template<_::execution_policy Ex, typename FwdI1, typename FwdI2> FwdI2 swap_ranges(Ex&&, FwdI1 i1, FwdI1 s1, FwdI2 i2);
 
 template<typename BidIt> constexpr void reverse(BidIt i, BidIt s) {
-  if constexpr (is_base_of_v<random_access_iterator_tag, _::iter_category_t<It>>) { if (i == s) return; for (--s; i < s; ++i, --s) std::iter_swap(i, s); }
-  else for (; i != s && i != --s) std::iter_swap(i++, s); }
+  if constexpr (is_base_of_v<random_access_iterator_tag, _::iter_category_t<BidIt>>) { if (i == s) return; for (--s; i < s; ++i, --s) std::iter_swap(i, s); }
+  else for (; i != s && i != --s;) std::iter_swap(i++, s); }
 template<_::execution_policy Ex, typename BidIt> void reverse(Ex&&, BidIt i, BidIt s);
 
 template<typename BidIt, typename OutIt> constexpr OutIt reverse_copy(BidIt i, BidIt s, OutIt o) { for(;; *o++ = *--s) if (i == s) return o; }
@@ -400,10 +400,10 @@ template<_::execution_policy Ex, typename FwdI1, typename FwdI2> bool lexicograp
 template<_::execution_policy Ex, typename FwdI1, typename FwdI2, typename Fn> bool lexicographical_compare(Ex&&, FwdI1 i1, FwdI1 s1, FwdI2 i2, FwdI2 s2, Fn f);
 
 template<typename InpI1, typename InpI2, typename Fn> constexpr auto lexicographical_compare_three_way(InpI1 i1, InpI1 s1, InpI2 i2, InpI2 s2, Fn f)
-  -> decltype(f(*i1, *i2)) { static_assert(_::is_three_way_result<decltype(f(*i1, *i2)));
+  -> decltype(f(*i1, *i2)) { static_assert(_::is_three_way_result<decltype(f(*i1, *i2))>);
   for (;;) { if (i1 == s1) return i2 == s2 ? strong_ordering::equal : strong_ordering::less;
              if (i2 == s2) return strong_ordering::greater;
-             if (auto c = f(*11, *i2); c != 0) return c; } }
+             if (auto c = f(*i1, *i2); c != 0) return c; } }
 template<typename InpI1, typename InpI2> constexpr auto lexicographical_compare_three_way(InpI1 i1, InpI1 s1, InpI2 i2, InpI2 s2) {
   return std::lexicographical_compare_three_way(_::move(i1), _::move(s1), _::move(i2), _::move(s2), compare_three_way{}); }
 
@@ -427,6 +427,9 @@ template<typename BidIt, typename Fn> constexpr bool prev_permutation(BidIt i, B
 // algorithm results
 
 namespace std::ranges {
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunknown-attributes"
 
 template<typename It, typename Fn> struct in_fun_result {
   [[no_unique_address]] It in; [[no_unique_address]] Fn fun;
@@ -478,6 +481,8 @@ template<typename Ot, typename Ty> struct out_value_result {
   constexpr operator out_value_result<OtA, TyA>() && { return {_::move(out), _::move(value)}; }
 };
 
+#pragma clang diagnostic pop
+
 template<typename It, typename Fn> using for_each_result = in_fun_result<It, Fn>;
 template<typename It, typename Fn> using for_each_n_result = in_fun_result<It, Fn>;
 template<typename I1, typename I2> using mismatch_result = in_in_result<I1, I2>;
@@ -524,7 +529,7 @@ concept range_comparable = iter_comparable<Fn, ranges::iterator_t<R1>, ranges::i
 
 struct _find {
   template<input_iterator It, sentinel_for<It> Se, typename Ty, typename Pj = identity> requires iter_comparable<ranges::equal_to, It, const Ty*, Pj>
-  constexpr It operator()(It i, Se s, const Ty& v, Pj p = {}) const { for (; i != s; ++i) if (std:::invoke(p, *i) == v) break; return i; }
+  constexpr It operator()(It i, Se s, const Ty& v, Pj p = {}) const { for (; i != s; ++i) if (std::invoke(p, *i) == v) break; return i; }
   template<ranges::input_range Rg, typename Ty, typename Pj = identity> requires iter_comparable<ranges::equal_to, ranges::iterator_t<Rg>, const Ty*, Pj>
   constexpr ranges::borrowed_iterator_t<Rg> operator()(Rg&& r, const Ty& v, Pj p = {}) const {
     return (*this)(ranges::begin(r), ranges::end(r), v, _::move(p)); }
@@ -699,7 +704,7 @@ inline constexpr _::_all_of all_of;
 inline constexpr _::_any_of any_of;
 inline constexpr _::_none_of none_of;
 inline constexpr _::_for_each for_each;
-inline constexpr _::_for_each_n for_each;
+inline constexpr _::_for_each_n for_each_n;
 inline constexpr _::_count count;
 inline constexpr _::_count_if count_if;
 inline constexpr _::_mismatch mismatch;
@@ -885,7 +890,7 @@ struct _reverse {
   template<ranges::bidirectional_range Rg> requires permutable<ranges::iterator_t<Rg>> constexpr ranges::borrowed_iterator_t<Rg> operator()(Rg&& r) const;
 };
 
-struct _remove_copy {
+struct _reverse_copy {
   template<bidirectional_iterator It, sentinel_for<It> Se, weakly_incrementable Ot> requires indirectly_copyable<It, Ot>
   constexpr ranges::reverse_copy_result<It, Ot> operator()(It i, Se s, Ot o) const;
   template<ranges::bidirectional_range Rg, weakly_incrementable Ot> requires indirectly_copyable<ranges::iterator_t<Rg>, Ot>
@@ -980,7 +985,7 @@ inline constexpr _::_replace_copy replace_copy;
 inline constexpr _::_replace_copy_if replace_copy_if;
 inline constexpr _::_swap_range swap_range;
 inline constexpr _::_reverse reverse;
-inline constexpr _::_remove_copy reverse_copy;
+inline constexpr _::_reverse_copy reverse_copy;
 inline constexpr _::_rotate rotate;
 inline constexpr _::_rotate_copy rotate_copy;
 inline constexpr _::_shift_left shift_left;

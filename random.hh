@@ -314,7 +314,7 @@ public:
   struct param_type {
     using distribution_type = bernoulli_distribution;
     param_type();
-    explicit param_type(double Px)
+    explicit param_type(double Px);
     friend bool operator==(const param_type& x, const param_type& y);
     double p() const;
   };
@@ -751,7 +751,7 @@ public:
   using result_type = Fat;
 
   struct param_type {
-    using distribution_type = fisher_f_distribution;
+    using distribution_type = student_t_distribution;
     param_type();
     explicit param_type(Fat Nx);
     friend bool operator==(const param_type& x, const param_type& y);

@@ -15,6 +15,7 @@
 
 namespace std {
 
+using size_t = decltype(sizeof(int));
 using int32_t = int;
 using uint8_t = unsigned char;
 using uint32_t = unsigned int;
@@ -24,6 +25,7 @@ using uint32_t = unsigned int;
 namespace DirectX {
 
 using std::int32_t;
+using std::size_t;
 using std::uint32_t;
 using std::uint8_t;
 

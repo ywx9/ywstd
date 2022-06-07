@@ -11,6 +11,8 @@
 #include <cstdlib>
 #else
 
+#include "@/abs.hh"
+
 namespace std {
 
 using size_t = decltype(sizeof(int));
@@ -62,12 +64,6 @@ void qsort(void*, size_t, size_t, _::c_compare_pred*);
 void qsort(void*, size_t, size_t, _::compare_pred*);
 void* bsearch(const void*, const void*, size_t, size_t, _::c_compare_pred*);
 void* bsearch(const void*, const void*, size_t, size_t, _::compare_pred*);
-int abs(int);
-long abs(long);
-long long abs(long long);
-float abs(float);
-double abs(double);
-long double abs(long double);
 long labs(long);
 long long llabs(long long);
 div_t div(int, int);

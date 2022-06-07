@@ -10,6 +10,7 @@
 #else
 
 #include "@/_.hh"
+#include "@/abs.hh"
 
 namespace std {
 
@@ -184,14 +185,6 @@ long double cbrt(long double x);
 float cbrtf(float x);
 long double cbrtl(long double x);
 
-// absolute values
-constexpr int abs(int j);
-constexpr long int abs(long int j);
-constexpr long long int abs(long long int j);
-constexpr float abs(float j);
-constexpr double abs(double j);
-constexpr long double abs(long double j);
-
 constexpr float fabs(float x);
 constexpr double fabs(double x);
 constexpr long double fabs(long double x);
@@ -220,6 +213,7 @@ double sqrt(double x);
 long double sqrt(long double x);
 float sqrtf(float x);
 long double sqrtl(long double x);
+template<_::integral Ty> constexpr double sqrt(Ty x);
 
 float erf(float x);
 double erf(double x);

@@ -17,7 +17,6 @@
 
 namespace std::filesystem {
 
-using string = basic_string<char>;
 using uintmax_t = unsigned long long;
 
 using std::filesystem::path;
@@ -191,6 +190,7 @@ public:
   const directory_entry* operator->() const;
   directory_iterator& operator++();
   directory_iterator& increment(error_code& ec);
+  friend bool operator==(const directory_iterator&, const directory_iterator&);
 };
 
 directory_iterator begin(directory_iterator iter) noexcept;
@@ -223,6 +223,7 @@ public:
   void pop();
   void pop(error_code& ec);
   void disable_recursion_pending();
+  friend bool operator==(const recursive_directory_iterator&, const recursive_directory_iterator&);
 };
 
 recursive_directory_iterator begin(recursive_directory_iterator iter) noexcept;

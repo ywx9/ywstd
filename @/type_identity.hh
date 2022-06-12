@@ -10,5 +10,6 @@
 namespace std {
 
 template<typename Ty> struct type_identity { using type = Ty; };
+template<typename Ty> using type_identity_t = typename type_identity<Ty>::type;
 
 }

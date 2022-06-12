@@ -23,7 +23,7 @@ template<typename Ct, typename Tr> basic_ostream<Ct, Tr>& flush(basic_ostream<Ct
 template<typename Ct, typename Tr> basic_ostream<Ct, Tr>& emit_on_flush(basic_ostream<Ct, Tr>& os);
 template<typename Ct, typename Tr> basic_ostream<Ct, Tr>& noemit_on_flush(basic_ostream<Ct, Tr>& os);
 template<typename Ct, typename Tr> basic_ostream<Ct, Tr>& flush_emit(basic_ostream<Ct, Tr>& os);
-template<typename Stream, typename Ty> Stream&& operator<<(Stream&& os, const Ty& x) requires requires { os << declval<Ty>(); };
+template<typename Stream, typename Ty> Stream&& operator<<(Stream&& os, const Ty& x);
 
 }
 

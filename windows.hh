@@ -10,12 +10,10 @@
 #ifdef _ywstd_
 #include "windows.h"
 #define YW_WINDOWS_FUNC(Ret, Func, ...) using ::Func;
-#define YW_WINDOWS_VOID(Ret, Func, ...) using ::Func;
 #define YW_WINDOWS_TYPE(Alias, ...) using ::Alias;
 #define YW_WINDOWS_STRUCT(Struct, ...) using ::Struct;
 #else
-#define YW_WINDOWS_FUNC(Ret, Func, ...) inline Ret Func(__VA_ARGS__) { return Ret{}; }
-#define YW_WINDOWS_VOID(Ret, Func, ...) inline Ret Func(__VA_ARGS__) {}
+#define YW_WINDOWS_FUNC(Ret, Func, ...) extern Ret Func(__VA_ARGS__);
 #define YW_WINDOWS_TYPE(Alias, ...) using Alias = __VA_ARGS__;
 #define YW_WINDOWS_STRUCT(Struct, ...) struct Struct { __VA_ARGS__; };
 #endif
@@ -97,16 +95,16 @@ YW_WINDOWS_TYPE(COLORREF, unsigned long)
 YW_WINDOWS_TYPE(DWORD, unsigned long)
 YW_WINDOWS_TYPE(DWORD_PTR, typename _switch<DWORD, unsigned long long>::type)
 YW_WINDOWS_TYPE(HANDLE, void*)
-YW_WINDOWS_TYPE(HBRUSH, _module<__LINE__>)
-YW_WINDOWS_TYPE(HCURSOR, _module<__LINE__>)
-YW_WINDOWS_TYPE(HDC, _module<__LINE__>)
-YW_WINDOWS_TYPE(HDESK, _module<__LINE__>)
+YW_WINDOWS_TYPE(HBRUSH, _module<__LINE__>*)
+YW_WINDOWS_TYPE(HCURSOR, _module<__LINE__>*)
+YW_WINDOWS_TYPE(HDC, _module<__LINE__>*)
+YW_WINDOWS_TYPE(HDESK, _module<__LINE__>*)
 YW_WINDOWS_TYPE(HDWP, HANDLE)
-YW_WINDOWS_TYPE(HHOOK, _module<__LINE__>)
-YW_WINDOWS_TYPE(HICON, _module<__LINE__>)
-YW_WINDOWS_TYPE(HINSTANCE, _module<__LINE__>)
-YW_WINDOWS_TYPE(HMENU, _module<__LINE__>)
-YW_WINDOWS_TYPE(HWND, _module<__LINE__>)
+YW_WINDOWS_TYPE(HHOOK, _module<__LINE__>*)
+YW_WINDOWS_TYPE(HICON, _module<__LINE__>*)
+YW_WINDOWS_TYPE(HINSTANCE, _module<__LINE__>*)
+YW_WINDOWS_TYPE(HMENU, _module<__LINE__>*)
+YW_WINDOWS_TYPE(HWND, _module<__LINE__>*)
 YW_WINDOWS_TYPE(INT_PTR, typename _switch<int, long long>::type)
 YW_WINDOWS_TYPE(LONG_PTR, typename _switch<long, long long>::type)
 YW_WINDOWS_TYPE(LPARAM, LONG_PTR)
@@ -275,7 +273,7 @@ inline BOOL GetMessage(MSG* msg, HWND hwnd, UINT MsgFilterMin, UINT MsgFilterMax
 YW_WINDOWS_FUNC(LPARAM, GetMessageExtraInfo)
 YW_WINDOWS_FUNC(DWORD, GetMessagePos)
 YW_WINDOWS_FUNC(long, GetMessageTime)
-YW_WINDOWS_VOID(void, GetWindow, HWND, UINT)
+YW_WINDOWS_FUNC(void, GetWindow, HWND, UINT)
 inline void GetNextWindow(HWND hwnd, UINT Cmd) { GetWindow(hwnd, Cmd); }
 YW_WINDOWS_FUNC(HWND, GetParent, HWND)
 YW_WINDOWS_FUNC(BOOL, GetProcessDefaultLayout, DWORD*)
@@ -337,7 +335,7 @@ YW_WINDOWS_FUNC(BOOL, PhysicalToLogicalPoint, HWND, POINT*)
 YW_WINDOWS_FUNC(BOOL, PostMessageA, HWND, UINT, WPARAM, LPARAM)
 YW_WINDOWS_FUNC(BOOL, PostMessageW, HWND, UINT, WPARAM, LPARAM)
 inline BOOL PostMessage(HWND hwnd, UINT Msg, WPARAM wparam, LPARAM lparam) YW_WINDOWS_AWFN(PostMessage, hwnd, Msg, wparam, lparam)
-YW_WINDOWS_VOID(void, PostQuitMessage, BOOL)
+YW_WINDOWS_FUNC(void, PostQuitMessage, BOOL)
 YW_WINDOWS_FUNC(BOOL, PostThreadMessageA, DWORD, UINT, WPARAM, LPARAM)
 YW_WINDOWS_FUNC(BOOL, PostThreadMessageW, DWORD, UINT, WPARAM, LPARAM)
 inline BOOL PostThreadMessage(DWORD Thread, UINT Msg, WPARAM wparam, LPARAM lparam) YW_WINDOWS_AWFN(PostThreadMessage, Thread, Msg, wparam, lparam)
@@ -411,7 +409,7 @@ YW_WINDOWS_FUNC(BOOL, ShowOwnedPopups, HWND, BOOL)
 YW_WINDOWS_FUNC(BOOL, ShowWindow, HWND, int)
 YW_WINDOWS_FUNC(BOOL, ShowWindowAsync, HWND, int)
 YW_WINDOWS_FUNC(BOOL, SoundSentry)
-YW_WINDOWS_VOID(void, SwitchToThisWindow, HWND, bool)
+YW_WINDOWS_FUNC(void, SwitchToThisWindow, HWND, bool)
 YW_WINDOWS_FUNC(BOOL, SystemParametersInfoA, UINT, UINT, void*, UINT)
 YW_WINDOWS_FUNC(BOOL, SystemParametersInfoW, UINT, UINT, void*, UINT)
 inline BOOL SystemParametersInfo(UINT Action, UINT uiParam, void* pvParam, UINT WinIni) YW_WINDOWS_AWFN(SystemParametersInfo, Action, uiParam, pvParam, WinIni)
@@ -427,4 +425,61 @@ YW_WINDOWS_FUNC(BOOL, WaitMessage)
 YW_WINDOWS_FUNC(HWND, WindowFromPhysicalPoint, POINT)
 YW_WINDOWS_FUNC(HWND, WindowFromPoint, POINT)
 
+// Winuser.h
+// CreateDialogA macro
+// CreateDialogIndirectA macro
+// CreateDialogIndirectParamA function
+// CreateDialogIndirectParamW function
+// CreateDialogIndirectW macro
+// CreateDialogParamA function
+// CreateDialogParamW function
+// CreateDialogW macro
+// DefDlgProcA function
+// DefDlgProcW function
+// DialogBoxA macro
+// DialogBoxIndirectA macro
+// DialogBoxIndirectParamA function
+// DialogBoxIndirectParamW function
+// DialogBoxIndirectW macro
+// DialogBoxParamA function
+// DialogBoxParamW function
+// DialogBoxW macro
+// DLGITEMTEMPLATE structure
+// DLGPROC callback function
+// DLGTEMPLATE structure
+// EndDialog function
+// GetDialogBaseUnits function
+// GetDlgCtrlID function
+// GetDlgItem function
+// GetDlgItemInt function
+// GetDlgItemTextA function
+// GetDlgItemTextW function
+// GetNextDlgGroupItem function
+// GetNextDlgTabItem function
+// IsDialogMessageA function
+// IsDialogMessageW function
+// MapDialogRect function
+
+YW_WINDOWS_FUNC(int, MessageBoxA, HWND hWnd, const char* lpText, const char* lpCaption, UINT uType)
+YW_WINDOWS_FUNC(int, MessageBoxW, HWND hWnd, const wchar_t* lpText, const wchar_t* lpCaption, UINT uType)
+#ifdef MessageBox
+#undef MessageBox
+#endif
+inline int MessageBox(HWND hWnd, const TCHAR* lpText, const TCHAR* lpCaption, UINT uType) YW_WINDOWS_AWFN(MessageBox, hWnd, lpText, lpCaption, uType)
+YW_WINDOWS_FUNC(int, MessageBoxExA, HWND hWnd, const char* lpText, const char* lpCaption, UINT uType, WORD wLanguageId)
+YW_WINDOWS_FUNC(int, MessageBoxExW, HWND hWnd, const wchar_t* lpText, const wchar_t* lpCaption, UINT uType, WORD wLanguageId)
+
+//  function
+// MessageBoxExW function
+// MessageBoxIndirectA function
+// MessageBoxIndirectW function
+// MessageBoxW function
+// MSGBOXCALLBACK callback function
+// MSGBOXPARAMSA structure
+// MSGBOXPARAMSW structure
+// SendDlgItemMessageA function
+// SendDlgItemMessageW function
+// SetDlgItemInt function
+// SetDlgItemTextA function
+// SetDlgItemTextW function
 }

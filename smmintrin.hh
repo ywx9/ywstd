@@ -21,12 +21,12 @@ inline constexpr int MM_FROUND_TO_ZERO = 0x03;
 inline constexpr int MM_FROUND_CUR_DIRECTION = 0x04;
 inline constexpr int MM_FROUND_RAISE_EXC = 0x00;
 inline constexpr int MM_FROUND_NO_EXC = 0x08;
-inline constexpr int MM_FROUND_NINT = _MM_FROUND_TO_NEAREST_INT | _MM_FROUND_RAISE_EXC;
-inline constexpr int MM_FROUND_FLOOR = _MM_FROUND_TO_NEG_INF | _MM_FROUND_RAISE_EXC;
-inline constexpr int MM_FROUND_CEIL = _MM_FROUND_TO_POS_INF | _MM_FROUND_RAISE_EXC;
-inline constexpr int MM_FROUND_TRUNC = _MM_FROUND_TO_ZERO | _MM_FROUND_RAISE_EXC;
-inline constexpr int MM_FROUND_RINT = _MM_FROUND_CUR_DIRECTION | _MM_FROUND_RAISE_EXC;
-inline constexpr int MM_FROUND_NEARBYINT = _MM_FROUND_CUR_DIRECTION | _MM_FROUND_NO_EXC;
+inline constexpr int MM_FROUND_NINT = MM_FROUND_TO_NEAREST_INT | MM_FROUND_RAISE_EXC;
+inline constexpr int MM_FROUND_FLOOR = MM_FROUND_TO_NEG_INF | MM_FROUND_RAISE_EXC;
+inline constexpr int MM_FROUND_CEIL = MM_FROUND_TO_POS_INF | MM_FROUND_RAISE_EXC;
+inline constexpr int MM_FROUND_TRUNC = MM_FROUND_TO_ZERO | MM_FROUND_RAISE_EXC;
+inline constexpr int MM_FROUND_RINT = MM_FROUND_CUR_DIRECTION | MM_FROUND_RAISE_EXC;
+inline constexpr int MM_FROUND_NEARBYINT = MM_FROUND_CUR_DIRECTION | MM_FROUND_NO_EXC;
 YW_INTRIN_FUNC(__m128i, _mm_blend_epi16, __m128i a, __m128i b, const int imm8)
 YW_INTRIN_FUNC(__m128d, _mm_blend_pd, __m128d a, __m128d b, const int imm8)
 YW_INTRIN_FUNC(__m128, _mm_blend_ps, __m128 a, __m128 b, const int imm8)
@@ -124,7 +124,7 @@ YW_INTRIN_FUNC(__m128, _mm_round_ss, __m128 a, __m128 b, int rounding)
 YW_INTRIN_FUNC(__m128i, _mm_stream_load_si128, __m128i* mem_addr)
 #ifdef _mm_test_all_ones
 #undef _mm_test_all_ones
-inline int _mm_test_all_ones(__m128i a) noexcept { return _mm_restc_si128(a, _mm_cmpeq_epi32(a, a)); }
+inline int _mm_test_all_ones(__m128i a) noexcept { return _mm_testc_si128(a, _mm_cmpeq_epi32(a, a)); }
 #else
 YW_INTRIN_FUNC(int, _mm_test_all_ones, __m128i a)
 #endif

@@ -194,6 +194,7 @@ template<typename Ty> complex<Ty> sqrt(const complex<Ty>&);
 template<typename Ty> complex<Ty> cbrt(const complex<Ty>& x) { return pow(x, static_cast<Ty>(1.0 / 3.0)); }
 
 // complex literals:
+#pragma warning(disable : 4068)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wuser-defined-literals"
 inline namespace literals {
@@ -207,7 +208,7 @@ inline namespace literals {
   }
 }
 #pragma clang diagnostic pop
-
+#pragma warning(default : 4068)
 }
 
 #endif

@@ -4,8 +4,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // clang-format off
-#define _ywstd_
-#define _M_IX86
+
 #pragma once
 
 #ifdef _M_IX86

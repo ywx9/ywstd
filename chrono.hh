@@ -897,7 +897,7 @@ constexpr year_month operator+(const year_month& x, const months& y) noexcept {
 constexpr year_month operator+(const months& x, const year_month& y) noexcept { return y + x; }
 constexpr year_month operator-(const year_month& x, const months& y) noexcept { return x + -y; }
 constexpr months operator-(const year_month& x, const year_month& y) noexcept {
-  return chrono::duration_cast<months>(x.year() - y.year() + months{(long long){unsigned{x.month()}} - (long long){unsigned{y.month()}}});
+  return chrono::duration_cast<months>(x.year() - y.year() + months{(long long)(unsigned)(x.month()) - (long long)(unsigned)(y.month())}); }
 }
 constexpr year_month operator+(const year_month& x, const years& y) noexcept { return x + chrono::duration_cast<months>(y); }
 constexpr year_month operator+(const years& x, const year_month& y) noexcept { return y + x; }

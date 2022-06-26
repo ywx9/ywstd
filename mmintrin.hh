@@ -42,6 +42,7 @@ union alignas(8) __m64 { // MSVC
 #endif
 
 namespace yw::intrin {
+using std::size_t;
 #ifdef YW_INTRIN_UNAVAILABLE
 YW_INTRIN_FUNC(__int64, _mm_cvtm64_si64, __m64 a)
 YW_INTRIN_FUNC(__m64, _mm_cvtsi64_m64, __int64 a)

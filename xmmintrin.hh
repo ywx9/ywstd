@@ -137,7 +137,15 @@ YW_INTRIN_FUNC(__m128, _mm_set_ss, float a)
 YW_INTRIN_FUNC(__m128, _mm_set1_ps, float a)
 YW_INTRIN_FUNC(__m128, _mm_setr_ps, float e3, float e2, float e1, float e0)
 YW_INTRIN_FUNC(__m128, _mm_setzero_ps, void)
+#ifdef _mm_shuffle_ps
+#define YW_INTRIN_MM_SHUFFLE_PS_IS_TEMPLATE
+#undef _mm_shuffle_ps
+template<unsigned int Imm8> inline __m128 _mm_shuffle_ps(__m128 a, __m128 b) noexcept {
+  return (__m128)__builtin_ia32_shufps((__v4sf)(__m128)(a), (__v4sf)(__m128)(b), (int)(Imm8));
+}
+#else
 YW_INTRIN_FUNC(__m128, _mm_shuffle_ps, __m128 a, __m128 b, unsigned int imm8)
+#endif
 YW_INTRIN_FUNC(__m128, _mm_sqrt_ps, __m128 a)
 YW_INTRIN_FUNC(__m128, _mm_sqrt_ss, __m128 a)
 YW_INTRIN_FUNC(__m128, _mm_sub_ps, __m128 a, __m128 b)
@@ -146,6 +154,16 @@ YW_INTRIN_FUNC(__m128, _mm_sub_ss, __m128 a, __m128 b)
 #undef _MM_TRANSPOSE4_PS
 inline void _MM_TRANSPOSE4_PS(__m128 row0, __m128 row1, __m128 row2, __m128 row3) noexcept {
   __m128 t3, t2, t1, t0;
+#ifdef YW_INTRIN_MM_SHUFFLE_PS_IS_TEMPLATE
+  t0 = _mm_shuffle_ps<0x44>((row0), (row1));
+  t2 = _mm_shuffle_ps<0xEE>((row0), (row1));
+  t1 = _mm_shuffle_ps<0x44>((row2), (row3));
+  t3 = _mm_shuffle_ps<0xEE>((row2), (row3));
+  (row0) = _mm_shuffle_ps<0x88>(t0, t1);
+  (row1) = _mm_shuffle_ps<0xDD>(t0, t1);
+  (row2) = _mm_shuffle_ps<0x88>(t2, t3);
+  (row3) = _mm_shuffle_ps<0xDD>(t2, t3);
+#else
   t0 = _mm_shuffle_ps((row0), (row1), 0x44);
   t2 = _mm_shuffle_ps((row0), (row1), 0xEE);
   t1 = _mm_shuffle_ps((row2), (row3), 0x44);
@@ -154,6 +172,7 @@ inline void _MM_TRANSPOSE4_PS(__m128 row0, __m128 row1, __m128 row2, __m128 row3
   (row1) = _mm_shuffle_ps(t0, t1, 0xDD);
   (row2) = _mm_shuffle_ps(t2, t3, 0x88);
   (row3) = _mm_shuffle_ps(t2, t3, 0xDD);
+#endif
 }
 #else
 YW_INTRIN_FUNC(void, _MM_TRANSPOSE4_PS, __m128 row0, __m128 row1, __m128 row2, __m128 row3)

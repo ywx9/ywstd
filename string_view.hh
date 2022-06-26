@@ -177,8 +177,10 @@ private:
 template<typename It, typename Se> basic_string_view(It, Se) -> basic_string_view<iter_value_t<It>>;
 template<typename R> basic_string_view(R&&) -> basic_string_view<ranges::range_value_t<R>>;
 
-template<typename Ct, typename Tr> inline constexpr bool ranges::enable_view<basic_string_view<Ct, Tr>> = true;
-template<typename Ct, typename Tr> inline constexpr bool ranges::enable_borrowed_range<basic_string_view<Ct, Tr>> = true;
+namespace ranges {
+template<typename Ct, typename Tr> inline constexpr bool enable_view<basic_string_view<Ct, Tr>> = true;
+template<typename Ct, typename Tr> inline constexpr bool enable_borrowed_range<basic_string_view<Ct, Tr>> = true;
+}
 
 template<typename Ct, typename Tr> constexpr bool operator==(basic_string_view<Ct, Tr> x, basic_string_view<Ct, Tr> y) noexcept {
   if (x.size() != y.size()) return false;

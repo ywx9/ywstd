@@ -63,7 +63,7 @@ int main() {
 
 ## License
 
-Copyright 2022 Yw Nineflod @ Ywx9
+Copyright 2022 Yw Ninefold @ Ywx9
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

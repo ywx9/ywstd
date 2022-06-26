@@ -18,6 +18,14 @@
 #define YW_WINDOWS_STRUCT(Struct, ...) struct Struct { __VA_ARGS__; };
 #endif
 
+#ifdef max
+#undef max
+#endif
+
+#ifdef min
+#undef min
+#endif
+
 #ifdef BroadcastSystemMessage
 #undef BroadcastSystemMessage
 #undef BroadcastSystemMessageEx
@@ -71,6 +79,7 @@
 #undef SetWindowText
 #undef SystemParametersInfo
 #undef UnregisterClass
+
 #endif
 
 namespace yw::windows {

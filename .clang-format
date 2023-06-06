@@ -1,0 +1,20 @@
+ColumnLimit: 0
+MaxEmptyLinesToKeep: 2
+ContinuationIndentWidth: 4
+PointerAlignment: Left
+FixNamespaceComments: false
+
+AllowShortBlocksOnASingleLine: Always
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLambdasOnASingleLine: All
+AllowShortLoopsOnASingleLine: true
+
+AlwaysBreakTemplateDeclarations: No
+BreakBeforeConceptDeclarations: Allowed
+IndentRequiresClause: false
+RequiresClausePosition: SingleLine
+RequiresExpressionIndentation: Keyword
+SpaceAfterTemplateKeyword: false
